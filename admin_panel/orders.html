@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders – Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #050510;
+            color: #e2e8f0;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar {
+            background: rgba(10, 5, 30, 0.95);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-item {
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(249, 115, 22, 0.12);
+            color: #fb923c;
+            border-left-color: #f97316;
+        }
+
+        .btn-admin {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+        }
+
+        .badge-paid {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-pending {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-cancelled {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .filter-btn {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn.active {
+            border-color: #f97316;
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.1);
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 min-h-screen fixed left-0 top-0 z-40 flex flex-col">
+        <div class="p-6 border-b border-white/6">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 btn-admin rounded-xl flex items-center justify-center"><svg
+                        class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" />
+                    </svg></div>
+                <div>
+                    <div class="text-white font-bold text-sm">Digital Store</div>
+                    <div class="text-orange-400 text-xs">Admin Panel</div>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 p-4 space-y-1">
+            <a href="dashboard.html"
+                class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm text-slate-400"><span>📊</span><span>Dashboard</span></a>
+            <a href="products.html"
+                class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm text-slate-400"><span>📦</span><span>Products</span></a>
+            <a href="orders.html"
+                class="nav-item active flex items-center space-x-3 px-4 py-3 rounded-xl text-sm"><span>🛒</span><span>Orders</span></a>
+            <a href="users.html"
+                class="nav-item flex items-center space-x-3 px-4 py-3 rounded-xl text-sm text-slate-400"><span>👥</span><span>Users</span></a>
+        </nav>
+        <div class="p-4 border-t border-white/6">
+            <button onclick="adminLogout()"
+                class="w-full flex items-center space-x-2 px-3 py-2 glass rounded-lg text-red-400 text-sm hover:bg-red-500/10 transition-colors"><span>🚪</span><span>Logout</span></button>
+        </div>
+    </aside>
+
+    <main class="ml-64 flex-1 p-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-white">Orders</h1>
+            <p class="text-slate-400 mt-1">View and manage all customer orders.</p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="flex space-x-2 mb-6">
+            <button onclick="filterOrders('all')" id="f-all"
+                class="filter-btn active px-4 py-2 rounded-xl text-sm text-white transition-all">All</button>
+            <button onclick="filterOrders('paid')" id="f-paid"
+                class="filter-btn px-4 py-2 rounded-xl text-sm text-slate-400 transition-all">Paid</button>
+            <button onclick="filterOrders('pending')" id="f-pending"
+                class="filter-btn px-4 py-2 rounded-xl text-sm text-slate-400 transition-all">Pending</button>
+            <button onclick="filterOrders('cancelled')" id="f-cancelled"
+                class="filter-btn px-4 py-2 rounded-xl text-sm text-slate-400 transition-all">Cancelled</button>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="glass rounded-xl p-4 text-center">
+                <div id="count-all" class="text-2xl font-black text-white">—</div>
+                <div class="text-slate-400 text-xs">Total Orders</div>
+            </div>
+            <div class="glass rounded-xl p-4 text-center">
+                <div id="count-paid" class="text-2xl font-black text-green-400">—</div>
+                <div class="text-slate-400 text-xs">Paid</div>
+            </div>
+            <div class="glass rounded-xl p-4 text-center">
+                <div id="count-pending" class="text-2xl font-black text-yellow-400">—</div>
+                <div class="text-slate-400 text-xs">Pending</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="glass rounded-2xl overflow-hidden">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-white/8">
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">#
+                        </th>
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                            Customer</th>
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                            Product</th>
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                            Amount</th>
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                            Status</th>
+                        <th class="text-left px-5 py-4 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                            Date</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table">
+                    <tr>
+                        <td colspan="6" class="text-center py-10 text-slate-400">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        const adminToken = localStorage.getItem('admin_token');
+        if (!adminToken) window.location.href = 'admin_login.html';
+
+        function getHeaders() { return { 'Authorization': `Bearer ${adminToken}` }; }
+        function adminLogout() { localStorage.removeItem('admin_token'); localStorage.removeItem('admin_user'); window.location.href = 'admin_login.html'; }
+
+        let allOrders = [];
+
+        async function loadOrders() {
+            try {
+                const res = await fetch(`${API_BASE}/orders/admin/all`, { headers: getHeaders() });
+                if (res.status === 401 || res.status === 403) { adminLogout(); return; }
+                allOrders = await res.json();
+
+                document.getElementById('count-all').textContent = allOrders.length;
+                document.getElementById('count-paid').textContent = allOrders.filter(o => o.status === 'paid').length;
+                document.getElementById('count-pending').textContent = allOrders.filter(o => o.status === 'pending').length;
+
+                renderTable(allOrders);
+            } catch {
+                document.getElementById('orders-table').innerHTML = '<tr><td colspan="6" class="text-center py-10 text-red-400">Failed to load orders</td></tr>';
+            }
+        }
+
+        function filterOrders(status) {
+            ['all', 'paid', 'pending', 'cancelled'].forEach(s => {
+                const btn = document.getElementById(`f-${s}`);
+                btn.className = s === status
+                    ? 'filter-btn active px-4 py-2 rounded-xl text-sm text-white transition-all'
+                    : 'filter-btn px-4 py-2 rounded-xl text-sm text-slate-400 transition-all';
+            });
+
+            const filtered = status === 'all' ? allOrders : allOrders.filter(o => o.status === status);
+            renderTable(filtered);
+        }
+
+        function renderTable(orders) {
+            const tbody = document.getElementById('orders-table');
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-10 text-slate-400">No orders found.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = orders.map(o => {
+                const statusClass = o.status === 'paid' ? 'badge-paid' : o.status === 'pending' ? 'badge-pending' : 'badge-cancelled';
+                const statusLabel = o.status === 'paid' ? '✅ Paid' : o.status === 'pending' ? '⏳ Pending' : '❌ ' + o.status;
+                return `
+          <tr class="border-b border-white/5">
+            <td class="px-5 py-4 text-slate-400 text-sm">#${o.id}</td>
+            <td class="px-5 py-4">
+              <div class="text-white text-sm font-medium">${o.username || 'N/A'}</div>
+              <div class="text-slate-500 text-xs">${o.user_email || ''}</div>
+            </td>
+            <td class="px-5 py-4">
+              <div class="text-white text-sm">${o.product_title || 'N/A'}</div>
+            </td>
+            <td class="px-5 py-4 text-green-400 font-semibold text-sm">$${(o.product_price || 0).toFixed(2)}</td>
+            <td class="px-5 py-4">
+              <span class="px-2 py-1 rounded-full text-xs font-medium ${statusClass}">${statusLabel}</span>
+            </td>
+            <td class="px-5 py-4 text-slate-400 text-xs">${new Date(o.created_at).toLocaleDateString()}</td>
+          </tr>
+        `;
+            }).join('');
+        }
+
+        loadOrders();
+    </script>
+</body>
+
+</html>

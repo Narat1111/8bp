@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login – Digital Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #050510;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-admin {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+            transition: all 0.3s ease;
+        }
+
+        .btn-admin:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: rgba(249, 115, 22, 0.5);
+            outline: none;
+            background: rgba(249, 115, 22, 0.06);
+        }
+
+        .input-field::placeholder {
+            color: #475569;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4 relative overflow-hidden bg-slate-950">
+
+    <div class="orb w-96 h-96 bg-orange-500 -top-32 -left-32"></div>
+    <div class="orb w-80 h-80 bg-red-500 -bottom-32 -right-32"></div>
+
+    <div class="w-full max-w-sm relative z-10">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 btn-admin rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-black text-white">Admin Panel</h1>
+            <p class="text-slate-500 mt-2 text-sm">Restricted access — admins only</p>
+        </div>
+
+        <div class="glass rounded-2xl p-7">
+            <div id="error-alert"
+                class="hidden mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm"></div>
+
+            <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+                <div class="mb-4">
+                    <label
+                        class="block text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Username</label>
+                    <input id="username" type="text" placeholder="admin" required
+                        class="input-field w-full px-4 py-3.5 rounded-xl text-sm" />
+                </div>
+
+                <div class="mb-6">
+                    <label
+                        class="block text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Password</label>
+                    <input id="password" type="password" placeholder="••••••••" required
+                        class="input-field w-full px-4 py-3.5 rounded-xl text-sm" />
+                </div>
+
+                <button type="submit" id="login-btn" class="btn-admin w-full text-white font-bold py-3.5 rounded-xl">
+                    <span id="btn-text">Access Admin Panel →</span>
+                    <span id="btn-loading" class="hidden">
+                        <svg class="animate-spin w-5 h-5 inline" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Authenticating...
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="../frontend/index.html" class="text-slate-600 hover:text-slate-400 text-xs transition-colors">←
+                Back to Store</a>
+        </div>
+
+        <div class="text-center mt-3">
+            <p class="text-slate-700 text-xs">Default: admin / Admin@123456</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+
+        // Redirect if already admin logged in
+        const adminToken = localStorage.getItem('admin_token');
+        if (adminToken) window.location.href = 'dashboard.html';
+
+        async function handleAdminLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            const errorAlert = document.getElementById('error-alert');
+
+            errorAlert.classList.add('hidden');
+            btn.disabled = true;
+            document.getElementById('btn-text').classList.add('hidden');
+            document.getElementById('btn-loading').classList.remove('hidden');
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Login failed');
+                if (!data.is_admin) throw new Error('Not an admin account');
+
+                localStorage.setItem('admin_token', data.access_token);
+                localStorage.setItem('admin_user', JSON.stringify({ id: data.user_id, username: data.username }));
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                errorAlert.textContent = err.message;
+                errorAlert.classList.remove('hidden');
+                btn.disabled = false;
+                document.getElementById('btn-text').classList.remove('hidden');
+                document.getElementById('btn-loading').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

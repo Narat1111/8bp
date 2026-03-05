@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Store – Premium Digital Products</title>
+    <meta name="description"
+        content="Buy premium digital products instantly. Netflix, Spotify, Adobe, ChatGPT Plus and more at unbeatable prices." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0a1a;
+            color: #e2e8f0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f64f59 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-glow {
+            background: radial-gradient(ellipse at 50% 0%, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-blur {
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .price-badge {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #1a1a3e 25%, #2a2a5e 50%, #1a1a3e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="nav-blur fixed top-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl btn-primary flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">Digital Store</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-purple-400 font-medium text-sm">Home</a>
+                    <a href="#products" class="text-slate-400 hover:text-white text-sm transition-colors">Products</a>
+                    <div id="nav-guest" class="flex items-center space-x-3">
+                        <a href="login.html"
+                            class="text-slate-400 hover:text-white text-sm transition-colors px-4 py-2 glass rounded-lg">Login</a>
+                        <a href="register.html"
+                            class="btn-primary text-white text-sm font-medium px-4 py-2 rounded-lg">Sign Up</a>
+                    </div>
+                    <div id="nav-user" class="hidden flex items-center space-x-3">
+                        <a href="dashboard.html"
+                            class="text-slate-400 hover:text-white text-sm transition-colors flex items-center space-x-2">
+                            <div class="w-7 h-7 rounded-full btn-primary flex items-center justify-center text-xs font-bold text-white"
+                                id="nav-avatar">U</div>
+                            <span id="nav-username">User</span>
+                        </a>
+                        <button onclick="logout()"
+                            class="text-red-400 hover:text-red-300 text-sm transition-colors px-3 py-1.5 glass rounded-lg">Logout</button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu btn -->
+                <button class="md:hidden text-slate-400" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass px-4 py-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-purple-400 font-medium">Home</a>
+                <a href="#products" class="text-slate-400">Products</a>
+                <a href="login.html" class="text-slate-400">Login</a>
+                <a href="register.html" class="btn-primary text-white text-center py-2 rounded-lg font-medium">Sign
+                    Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-glow pt-32 pb-20 px-4 text-center relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-flex items-center space-x-2 glass px-4 py-2 rounded-full text-sm text-purple-300 mb-8">
+                <span class="pulse-dot w-2 h-2 bg-green-400 rounded-full"></span>
+                <span>Instant Digital Delivery After Payment</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                Premium Digital
+                <span class="gradient-text block">Products Store</span>
+            </h1>
+            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Get instant access to Netflix, Spotify, Adobe, ChatGPT Plus and more.
+                Pay securely with <strong class="text-purple-400">KHQR</strong> – Cambodia's top payment method.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#products"
+                    class="btn-primary text-white font-semibold px-8 py-4 rounded-xl text-lg inline-block">
+                    Browse Products 🛒
+                </a>
+                <a href="register.html"
+                    class="glass text-white font-semibold px-8 py-4 rounded-xl text-lg inline-block hover:border-purple-500/50 transition-colors">
+                    Create Account →
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating stats -->
+        <div class="max-w-3xl mx-auto mt-20 grid grid-cols-3 gap-6">
+            <div class="glass rounded-2xl p-5 text-center">
+                <div class="text-3xl font-black gradient-text" id="stat-products">0</div>
+                <div class="text-slate-400 text-sm mt-1">Products</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+                <div class="text-3xl font-black text-green-400">⚡</div>
+                <div class="text-slate-400 text-sm mt-1">Instant</div>
+            </div>
+            <div class="glass rounded-2xl p-5 text-center">
+                <div class="text-3xl font-black text-blue-400">🔒</div>
+                <div class="text-slate-400 text-sm mt-1">Secure</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl font-black mb-4">Featured <span class="gradient-text">Products</span></h2>
+                <p class="text-slate-400 max-w-xl mx-auto">All products include account credentials delivered instantly
+                    after payment verification.</p>
+            </div>
+
+            <!-- Search -->
+            <div class="max-w-md mx-auto mb-10">
+                <div class="relative">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                    </svg>
+                    <input id="search-input" type="text" placeholder="Search products..."
+                        class="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                        oninput="searchProducts(this.value)" />
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loading skeletons -->
+                <div class="shimmer rounded-2xl h-80"></div>
+                <div class="shimmer rounded-2xl h-80"></div>
+                <div class="shimmer rounded-2xl h-80"></div>
+            </div>
+
+            <div id="no-products" class="hidden text-center py-20 text-slate-400">
+                <div class="text-6xl mb-4">📦</div>
+                <p class="text-xl">No products found</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4 glass">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-black text-center mb-14">Why Choose <span class="gradient-text">Digital
+                    Store?</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div
+                        class="w-16 h-16 btn-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                        ⚡</div>
+                    <h3 class="text-xl font-bold mb-2">Instant Delivery</h3>
+                    <p class="text-slate-400">Account details delivered immediately after payment is verified via
+                        Bakong.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                        🔒</div>
+                    <h3 class="text-xl font-bold mb-2">Secure Payment</h3>
+                    <p class="text-slate-400">KHQR payments through Bakong – Cambodia's official digital payment system.
+                    </p>
+                </div>
+                <div class="text-center p-6">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                        📱</div>
+                    <h3 class="text-xl font-bold mb-2">Easy to Use</h3>
+                    <p class="text-slate-400">Just scan the QR code with any Bakong-compatible banking app to pay.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 text-center border-t border-white/5">
+        <div class="gradient-text text-xl font-black mb-2">Digital Store</div>
+        <p class="text-slate-500 text-sm">© 2024 Digital Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        let allProducts = [];
+
+        // Check auth
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+            if (token && user) {
+                document.getElementById('nav-guest').classList.add('hidden');
+                document.getElementById('nav-user').classList.remove('hidden');
+                document.getElementById('nav-username').textContent = user.username;
+                document.getElementById('nav-avatar').textContent = user.username[0].toUpperCase();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.reload();
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API_BASE}/products/`);
+                const products = await res.json();
+                allProducts = products;
+                document.getElementById('stat-products').textContent = products.length;
+                renderProducts(products);
+            } catch (err) {
+                document.getElementById('products-grid').innerHTML = `
+          <div class="col-span-3 text-center py-20 text-slate-400">
+            <div class="text-5xl mb-4">❌</div>
+            <p>Failed to load products. Make sure the backend is running.</p>
+            <p class="text-sm mt-2 text-slate-500">uvicorn main:app --reload (in /backend directory)</p>
+          </div>
+        `;
+            }
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('products-grid');
+            const noProducts = document.getElementById('no-products');
+
+            if (products.length === 0) {
+                grid.innerHTML = '';
+                noProducts.classList.remove('hidden');
+                return;
+            }
+            noProducts.classList.add('hidden');
+
+            grid.innerHTML = products.map(p => `
+        <div class="glass rounded-2xl overflow-hidden card-hover cursor-pointer border border-white/10" onclick="goToProduct(${p.id})">
+          <div class="relative overflow-hidden h-48">
+            <img src="${p.image || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80'}"
+              alt="${p.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              onerror="this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80'" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+            <div class="absolute top-3 right-3">
+              <span class="price-badge text-white text-sm font-bold px-3 py-1 rounded-full">$${p.price.toFixed(2)}</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-white mb-2 line-clamp-1">${p.title}</h3>
+            <p class="text-slate-400 text-sm mb-4 line-clamp-2">${p.description || 'Premium digital product with instant delivery.'}</p>
+            <button onclick="event.stopPropagation(); buyProduct(${p.id})"
+              class="w-full btn-primary text-white font-semibold py-2.5 rounded-xl text-sm">
+              Buy Now – $${p.price.toFixed(2)}
+            </button>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function searchProducts(query) {
+            const filtered = allProducts.filter(p =>
+                p.title.toLowerCase().includes(query.toLowerCase()) ||
+                (p.description && p.description.toLowerCase().includes(query.toLowerCase()))
+            );
+            renderProducts(filtered);
+        }
+
+        function goToProduct(id) {
+            window.location.href = `product.html?id=${id}`;
+        }
+
+        function buyProduct(id) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = `login.html?redirect=checkout.html?id=${id}`;
+                return;
+            }
+            window.location.href = `checkout.html?id=${id}`;
+        }
+
+        checkAuth();
+        loadProducts();
+    </script>
+</body>
+
+</html>
