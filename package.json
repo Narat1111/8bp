@@ -1,0 +1,13 @@
+{
+  "name": "digital-store",
+  "version": "1.0.0",
+  "description": "Python Fast API deployed under a Node container",
+  "main": "backend/main.py",
+  "scripts": {
+    "postinstall": "pip install -r requirements.txt",
+    "start": "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+  },
+  "keywords": [],
+  "author": "Antigravity",
+  "license": "ISC"
+}
