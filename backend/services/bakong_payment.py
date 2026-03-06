@@ -69,9 +69,9 @@ def generate_qr_image_base64(qr_data: str) -> str:
     return base64.b64encode(buffer.getvalue()).decode("utf-8")
 
 
-def compute_md5(transaction_id: str) -> str:
-    """Compute MD5 hash for payment verification."""
-    return hashlib.md5(transaction_id.encode()).hexdigest()
+def compute_md5(qr_string: str) -> str:
+    """Compute MD5 hash of the full KHQR string for payment verification."""
+    return hashlib.md5(qr_string.encode()).hexdigest()
 
 
 async def check_payment_via_bakong_api(md5_hash: str) -> dict:
@@ -118,7 +118,7 @@ def create_payment_data(
     memo = f"Buy: {product_title[:20]}"
     qr_string = build_khqr_string(amount, transaction_id, currency, memo)
     qr_image = generate_qr_image_base64(qr_string)
-    md5_hash = compute_md5(transaction_id)
+    md5_hash = compute_md5(qr_string)
 
     return {
         "transaction_id": transaction_id,
