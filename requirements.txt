@@ -9,8 +9,7 @@ bcrypt
 python-multipart
 python-dotenv
 httpx
-qrcode[pil]
-Pillow
+qrcode
 requests
 cryptography
 pydantic[email]
