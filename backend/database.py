@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:@localhost:3306/digital_store")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./digital_store.db")
 
 # Render provides postgres:// but SQLAlchemy needs postgresql://
 # Also handle Render's PostgreSQL URL scheme
@@ -15,12 +15,19 @@ if DATABASE_URL.startswith("postgres://"):
 
 # Detect DB type for engine args
 IS_POSTGRES = DATABASE_URL.startswith("postgresql")
+IS_SQLITE = DATABASE_URL.startswith("sqlite")
 
 engine_kwargs = {
-    "pool_pre_ping": True,
-    "pool_recycle": 300,
     "echo": False,
 }
+
+if IS_SQLITE:
+    engine_kwargs["connect_args"] = {"check_same_thread": False}
+else:
+    engine_kwargs.update({
+        "pool_pre_ping": True,
+        "pool_recycle": 300,
+    })
 
 # PostgreSQL on Render needs connection pool adjustments
 if IS_POSTGRES:
@@ -45,9 +52,9 @@ def get_db():
 
 
 def create_database_if_not_exists():
-    """Create the MySQL database if it doesn't exist (skip for PostgreSQL – Render creates it)."""
-    if IS_POSTGRES:
-        # Render PostgreSQL DB is pre-created; just ensure tables exist
+    """Create the MySQL database if it doesn't exist (skip for PostgreSQL/SQLite)"""
+    if IS_POSTGRES or IS_SQLITE:
+        # Render PostgreSQL DB is pre-created; SQLite creates file automatically on engine connect
         return
     try:
         base_url = DATABASE_URL.rsplit("/", 1)[0]
