@@ -4,8 +4,9 @@ import { ShoppingCart, CheckCircle, ShieldCheck, X, TrendingUp, Search, Lock, Lo
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api'
+    baseURL: `${API_BASE}/api`
 });
 
 function Home() {
@@ -246,7 +247,7 @@ function Home() {
                                 {/* Fallback gradients if no image */}
                                 {product.image_url ? (
                                     <img
-                                        src={product.image_url.startsWith('/uploads/') ? `http://localhost:8000${product.image_url}` : product.image_url}
+                                        src={product.image_url.startsWith('/uploads/') ? `${API_BASE}${product.image_url}` : product.image_url}
                                         alt={product.name}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         onError={(e) => { e.target.style.display = 'none'; }}

@@ -17,7 +17,8 @@ function AdminLogin() {
         setIsLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:8000/api/admin/login', {
+            const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const res = await axios.post(`${API_BASE}/api/admin/login`, {
                 username,
                 password
             });

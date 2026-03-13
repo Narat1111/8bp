@@ -99,7 +99,7 @@ app.add_middleware(
     allow_headers=["Authorization", "Content-Type", "Accept"],
 )
 
-JWT_SECRET = "your_super_secret_jwt_key_change_in_production_2026"
+JWT_SECRET = os.getenv("JWT_SECRET", "your_super_secret_jwt_key_change_in_production_2026")
 INFOBIP_API_KEY = os.getenv("INFOBIP_API_KEY", "YOUR_INFOBIP_API_KEY")
 INFOBIP_BASE_URL = os.getenv("INFOBIP_BASE_URL", "vy3lve.api.infobip.com")
 INFOBIP_SENDER = os.getenv("INFOBIP_SENDER", "ChheakNarat@selfserve.worlds-connected.co")

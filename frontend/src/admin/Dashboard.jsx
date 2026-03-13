@@ -4,7 +4,8 @@ import { LayoutDashboard, Users, ShoppingBag, Settings, LogOut, Package, Plus, S
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const api = axios.create({ baseURL: `${API_BASE}/api` });
 
 // Redirect to login on 401/403
 api.interceptors.response.use(
@@ -311,7 +312,7 @@ function AdminDashboard() {
                                     <td className="px-6 py-4">
                                         <div className="w-12 h-12 rounded bg-slate-800 flex items-center justify-center border border-white/10 overflow-hidden">
                                             {p.image_url ?
-                                                <img src={p.image_url.startsWith('/uploads/') ? `http://localhost:8000${p.image_url}` : p.image_url} className="w-full h-full object-cover" alt="" onError={(e) => e.target.style.display = 'none'} />
+                                                <img src={p.image_url.startsWith('/uploads/') ? `${API_BASE}${p.image_url}` : p.image_url} className="w-full h-full object-cover" alt="" onError={(e) => e.target.style.display = 'none'} />
                                                 : <ImageIcon className="w-5 h-5 text-slate-500" />
                                             }
                                         </div>
