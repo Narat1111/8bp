@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkVault — Unlock Premium Digital Content</title>
+  <meta name="description" content="Unlock premium digital content with secure Bakong KHQR payments. Browse templates, pay securely, and get instant access.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- LOADING SCREEN -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loader-content">
+      <div class="loader-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div class="loader-bar"><div class="loader-progress"></div></div>
+      <p class="loader-text">Initializing LinkVault...</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- NAVIGATION -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" id="nav-logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <span>LinkVault</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#templates" class="nav-link">Browse</a>
+        <a href="#how-it-works" class="nav-link">How it Works</a>
+      </div>
+      <div class="nav-actions" id="nav-actions">
+        <!-- Dynamic: Login/Signup or User menu -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- HERO SECTION -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Secured by Bakong KHQR
+      </div>
+      <h1 class="hero-title">
+        Unlock Premium<br>
+        <span class="gradient-text">Digital Content</span>
+      </h1>
+      <p class="hero-subtitle">
+        Browse exclusive templates, courses, and resources.<br>
+        Pay securely with Bakong KHQR and get instant access.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="scrollToTemplates()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Browse Content
+        </button>
+        <button class="btn btn-glass btn-lg" onclick="showAuthModal('signup')">
+          Get Started Free
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" data-count="500">0</span>+
+          <span class="stat-label">Templates</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-count="12">0</span>K+
+          <span class="stat-label">Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-count="99">0</span>%
+          <span class="stat-label">Uptime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- HOW IT WORKS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="how-it-works" class="section how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Simple Process</span>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-desc">Three easy steps to unlock premium content</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card" data-step="1">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3>Browse & Choose</h3>
+          <p>Explore our curated collection of premium digital content including UI kits, courses, and source code.</p>
+        </div>
+        <div class="step-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h36M30 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" opacity="0.3"/></svg>
+        </div>
+        <div class="step-card" data-step="2">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>Scan & Pay</h3>
+          <p>Generate a KHQR code and pay securely through your Bakong-enabled banking app. Fast and safe.</p>
+        </div>
+        <div class="step-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h36M30 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" opacity="0.3"/></svg>
+        </div>
+        <div class="step-card" data-step="3">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+          </div>
+          <h3>Unlock & Download</h3>
+          <p>Payment verified instantly. Get your download link and password to access your premium content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- TEMPLATES SECTION -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section id="templates" class="section templates-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Premium Collection</span>
+        <h2 class="section-title">Browse Templates</h2>
+        <p class="section-desc">Unlock high-quality digital content for just $0.01</p>
+      </div>
+      <div id="templates-grid" class="templates-grid">
+        <!-- Templates loaded dynamically -->
+        <div class="templates-loading">
+          <div class="spinner"></div>
+          <p>Loading templates...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- AUTH MODAL -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="auth-modal" class="modal-overlay hidden">
+    <div class="modal auth-modal">
+      <button class="modal-close" onclick="closeModal('auth-modal')">&times;</button>
+      <div class="auth-header">
+        <div class="auth-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2 id="auth-title">Welcome Back</h2>
+        <p id="auth-subtitle">Sign in to your account</p>
+      </div>
+      <form id="auth-form" class="auth-form" onsubmit="handleAuth(event)">
+        <div class="form-group">
+          <label for="auth-email">Email Address</label>
+          <div class="input-wrapper">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="auth-email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Password</label>
+          <div class="input-wrapper">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="auth-password" placeholder="••••••••" required minlength="8">
+          </div>
+        </div>
+        <div id="auth-error" class="auth-error hidden"></div>
+        <button type="submit" class="btn btn-primary btn-full" id="auth-submit-btn">
+          <span id="auth-btn-text">Sign In</span>
+          <div class="btn-spinner hidden" id="auth-spinner"></div>
+        </button>
+      </form>
+      <div class="auth-footer">
+        <p id="auth-toggle-text">Don't have an account? <a href="#" id="auth-toggle" onclick="toggleAuthMode(event)">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- PAYMENT MODAL -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="payment-modal" class="modal-overlay hidden">
+    <div class="modal payment-modal">
+      <button class="modal-close" onclick="closeModal('payment-modal')">&times;</button>
+      <div id="payment-content">
+        <!-- Dynamic payment content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- UNLOCK MODAL -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="unlock-modal" class="modal-overlay hidden">
+    <div class="modal unlock-modal">
+      <button class="modal-close" onclick="closeModal('unlock-modal')">&times;</button>
+      <div id="unlock-content">
+        <!-- Dynamic unlock content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- TOAST NOTIFICATIONS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- FOOTER -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="logo-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <span>LinkVault</span>
+          </div>
+          <p>Secure digital content unlocking platform powered by Bakong KHQR payments.</p>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 LinkVault. All rights reserved.</p>
+          <p>Payments secured by <strong>Bakong KHQR</strong></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

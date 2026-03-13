@@ -1,13 +1,11 @@
 {
-  "name": "digital-store",
-  "version": "1.0.0",
-  "description": "Python Fast API deployed under a Node container",
-  "main": "backend/main.py",
-  "scripts": {
-    "postinstall": "pip install --only-binary :all: Pillow && pip install -r requirements.txt",
-    "start": "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
-  },
-  "keywords": [],
-  "author": "Antigravity",
-  "license": "ISC"
+  "dependencies": {
+    "autoprefixer": "^10.4.27",
+    "axios": "^1.13.6",
+    "framer-motion": "^12.35.2",
+    "lucide-react": "^0.577.0",
+    "postcss": "^8.5.8",
+    "react-router-dom": "^7.13.1",
+    "tailwindcss": "^4.2.1"
+  }
 }
